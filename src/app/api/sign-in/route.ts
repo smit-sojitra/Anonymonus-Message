@@ -63,7 +63,7 @@ export async function POST(req:Request){
             message:"User registered successfully.Please verify your email",
         },{status:201})
     } catch (error) {
-        console.log("Error while signing up", error);
+        console.log("Error while signing up:-",error);
         return Response.json(
             {
                 success: false,
