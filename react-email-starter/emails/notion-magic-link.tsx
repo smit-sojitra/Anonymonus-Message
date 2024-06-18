@@ -13,6 +13,8 @@ import * as React from "react";
 
 interface NotionMagicLinkEmailProps {
   loginCode?: string;
+  userName:string;
+  otp:string;
 }
 
 const baseUrl = process.env.VERCEL_URL
@@ -20,7 +22,7 @@ const baseUrl = process.env.VERCEL_URL
   : "";
 
 export const NotionMagicLinkEmail = ({
-  loginCode,
+  loginCode,userName,otp
 }: NotionMagicLinkEmailProps) => (
   <Html>
     <Head />
@@ -82,6 +84,8 @@ export const NotionMagicLinkEmail = ({
           <br />
           for your notes, tasks, wikis, and databases.
         </Text>
+        <p>Hello,{userName}</p>
+        <p>This is your otp : {otp}</p>
       </Container>
     </Body>
   </Html>

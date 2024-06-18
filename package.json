@@ -6,13 +6,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "email": "cd react-email-starter && npm run dev"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "mongoose": "^8.4.1",
     "next": "14.2.4",
     "next-auth": "^4.24.7",
+    "nodemailer": "^6.9.13",
     "react": "^18",
     "react-dom": "^18",
     "resend": "^3.3.0",
