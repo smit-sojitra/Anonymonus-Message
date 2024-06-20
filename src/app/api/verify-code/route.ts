@@ -19,7 +19,7 @@ export async function POST(request:Request){
         }
         const isCodeValid = user.verifyCode === code;
         const isCodeNotExpierd = new Date(user.verifyCodeExpiry) > new Date()
-        if(isCodeNotExpierd && isCodeNotExpierd){
+        if(isCodeNotExpierd && isCodeValid){
             user.isVerified = true;
             await user.save();
             return Response.json(
@@ -34,7 +34,7 @@ export async function POST(request:Request){
             return Response.json(
                 {
                     success:false,
-                    message:'Verification code expired,Please signup again to get ne code'
+                    message:'Verification code expired,Please signup again to get new code'
                 },{
                     status:500
                 }

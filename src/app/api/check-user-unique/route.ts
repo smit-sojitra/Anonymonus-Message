@@ -11,13 +11,14 @@ export async function GET(request:Request){
     await dbConnect();
     try {
         const {searchParams} = new URL(request.url);
-        // console.log("searchParams",searchParams); Test
+        console.log("searchParams",searchParams)
         const queryParams = {
-            username: searchParams.get('username')
+            username: searchParams.get('userName'),
         }
+        // console.log('queryParams',queryParams);
         // validate with zod
         const result = UsernameQueryschema.safeParse(queryParams);
-        // console.log("Result:-",result)  Test
+        // console.log("Result:-",result)
         if(!result.success){
             const usernameErrors = result.error.format().username?._errors || [] 
             return Response.json({
@@ -27,6 +28,7 @@ export async function GET(request:Request){
             },{status:500})
         }
         const {username} = result.data;
+        // console.log('username',username)
         const existinfVerifiedUser = await UserModel.findOne({userName:username,isVerified:true});
         if(existinfVerifiedUser){
             return Response.json({
