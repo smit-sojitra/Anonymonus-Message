@@ -71,11 +71,14 @@ const page = () => {
         const response = await axios.post('/api/sign-up', data)
         console.log("response:-",response);
         toast.success('Sign Up Successfully');
-        // router.replace(`/verify/${userName}`)
+        router.replace(`/verify/${userName}`)
+        // router.replace('/verify-account');
         setSubmitting(false);
       } catch (error) {
         const axiosErrors = error as AxiosError<ApiResponse>
-        toast.error("Signup failed");
+        if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
+          toast.error(axiosErrors.response.data.message);
+        }
         console.log("axiosErrors:",axiosErrors);
         setSubmitting(false);   
       }
@@ -108,7 +111,6 @@ const page = () => {
                 {
                  isCheckingUsername &&<Loader2 className="h-4 w-4 animate-spin"/>
                 }
-
               </p>
                 <p className={`text-sm ${userMessage === "UserName is unique" ?"text-green-500":"text-red-500"}`}>
                   {

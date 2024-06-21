@@ -15,25 +15,35 @@ export const authOptions:NextAuthOptions = {
               },
               async authorize(credentials:any):Promise<any> {
                 await dbConnect()
+                // console.log('credentials',credentials)
                 try {
-                    const user = await UserModel.findOne({
-                        $or:[
-                        // { email: credentials.email },
-                        // { username: credentials.username }]
-                        { email: credentials.identifier },
-                        { username: credentials.identifier }]
-                    })
-                    if(!user){
+                    // const user = await UserModel.findOne({
+                    //     $or:[
+                    //     // { email: credentials.email },
+                    //     // { username: credentials.username }]
+                    //     { email: credentials.identifier },
+                    //     { userName: credentials.identifier }]
+                    // })
+                    const existingUserByEmail = await UserModel.findOne({userName:credentials.identifier})
+                    const existingUserByUsername = await UserModel.findOne({userName:credentials.identifier})
+                    const user = existingUserByEmail || existingUserByUsername
+                    // console.log('user',user)
+                    if(!existingUserByEmail){
                         throw new  Error("User not found with this email");
                     }
-                    if(!user.isVerified){
-                        throw new Error("User is not verified");
+                    if(!existingUserByUsername){
+                        throw new  Error("User not found with this username");
                     }
-                    const isPasswordCorrect = await bcrypt.compare(credentials.password,user.password);
-                    if(isPasswordCorrect){
-                        return user
-                    }else{
-                        throw new Error("Invalid Password");
+                    if(user){
+                        const isPasswordCorrect = await bcrypt.compare(credentials.password,user?.password);
+                        if(isPasswordCorrect){
+                            if(!user?.isVerified){
+                                throw new Error("User is not verified");
+                            }
+                            return user
+                        }else{
+                            throw new Error("Invalid Password");
+                        }
                     }
                 } catch (error:any) {
                     throw new  Error(error);
@@ -54,22 +64,21 @@ export const authOptions:NextAuthOptions = {
         },
         async session({ session, token }) {
             if(token){
-                console.log('token:',token)
                 session.user._id =  token._id;
                 session.user.isVerified = token.isVerified;
                 session.user.isAcceptingMessages = token.isAcceptingMessages;
                 session.user.username = token.username;
+                console.log('token:',token)
             }
             return session
           },
     },
     pages:{
-        signIn:'/sing-in',
+        signIn:'/sign-in',
     },
     session:{
         strategy:"jwt",
         // maxAge:1, // 1 hour in seconds
     },
     secret:process.env.NEXTAUTH_SECRET,
-    
 }
