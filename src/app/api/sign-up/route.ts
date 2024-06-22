@@ -62,7 +62,7 @@ export async function POST(req:Request){
         }
         return Response.json({
             success:true,
-            message:emailResponse,
+            message:verifyCode,
         },{status:201})
     } catch (error) {
         console.log("Error while signing up:-",error);

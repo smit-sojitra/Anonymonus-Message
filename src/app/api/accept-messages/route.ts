@@ -53,6 +53,7 @@ export async function GET(request:Request){
     await dbConnect();
     const session = await getServerSession(authOptions);
     const user:User = session?.user;
+    console.log('Get messages session',user)
     if(!session || !session.user){
         return Response.json(
             {
@@ -62,10 +63,9 @@ export async function GET(request:Request){
             { status:500 }
         )
     }
-    const userId = user._id;
-    
+
     try {
-        const foundUser = await UserModel.findByIdAndUpdate(userId);
+        const foundUser = await UserModel.findById({_id:user._id});
         if(!foundUser){
             return Response.json(
                 {
