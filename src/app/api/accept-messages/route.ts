@@ -53,7 +53,7 @@ export async function GET(request:Request){
     await dbConnect();
     const session = await getServerSession(authOptions);
     const user:User = session?.user;
-    console.log('Get messages session',user)
+    // console.log('Accept  messages session',user)
     if(!session || !session.user){
         return Response.json(
             {

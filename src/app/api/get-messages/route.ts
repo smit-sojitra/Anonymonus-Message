@@ -27,7 +27,7 @@ export async function GET(request:Request){
             { $sort:{'messages.createdAt':-1}},
             {$group:{_id:'$_id',messages:{$push:'$messages'}}}
         ])
-        console.log("user",user)
+        // console.log("user",user)
         if(!user){
             return Response.json(
                 {

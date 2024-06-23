@@ -84,13 +84,13 @@ const page = () => {
       }
     }
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-800">
+    <div className="flex overflow-hidden justify-center items-center min-h-screen bg-gray-800">
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
-          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
+          <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-3 md:mb-6">
             Join True Feedback
           </h1>
-          <p className="mb-4">Sign up to start your anonymous adventure</p>
+          <p className="md:mb-4">Sign up to start your anonymous adventure</p>
         </div>
        <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)}  className="space-y-6">
@@ -101,7 +101,7 @@ const page = () => {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
-                <Input placeholder="enter username" {...field} 
+                <Input placeholder="" {...field} 
                 onChange={(e)=>{
                   field.onChange(e)
                   debounced(e.target.value);
@@ -128,7 +128,7 @@ const page = () => {
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="enter email" {...field} />
+                <Input placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -141,7 +141,7 @@ const page = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input type={`${pass?'text':'password'}`} className="relative" placeholder="enter password" {...field} >
+                <Input type={`${pass?'text':'password'}`} className="relative" placeholder="" {...field} >
                 </Input>
               </FormControl>
               <FormMessage />
