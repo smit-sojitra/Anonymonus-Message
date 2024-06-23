@@ -34,7 +34,7 @@ export async function POST(request:Request){
     try {
         const completion = await openai.chat.completions.create({
             messages:[{role:'user', content:'Tell me jokes'}],
-            model:'dall-e-3text-embedding-3-small'
+            model:'gpt-3.5-turbo'
         })
         return Response.json({
             success:true,
