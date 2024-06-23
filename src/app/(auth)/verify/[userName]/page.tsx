@@ -45,7 +45,7 @@ const page = () => {
             });
             console.log('Response',response);
             toast.success("Account verified successfully");
-            router.replace('/');
+            router.replace('/dashboard');
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
         if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {

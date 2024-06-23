@@ -17,23 +17,20 @@ export const authOptions:NextAuthOptions = {
                 await dbConnect()
                 // console.log('credentials',credentials)
                 try {
-                    // const user = await UserModel.findOne({
-                    //     $or:[
-                    //     // { email: credentials.email },
-                    //     // { username: credentials.username }]
-                    //     { email: credentials.identifier },
-                    //     { userName: credentials.identifier }]
-                    // })
-                    const existingUserByEmail = await UserModel.findOne({userName:credentials.identifier})
-                    const existingUserByUsername = await UserModel.findOne({userName:credentials.identifier})
-                    const user = existingUserByEmail || existingUserByUsername
-                    // console.log('user',user)
-                    if(!existingUserByEmail){
-                        throw new  Error("User not found with this email");
-                    }
-                    if(!existingUserByUsername){
-                        throw new  Error("User not found with this username");
-                    }
+                    const user = await UserModel.findOne({
+                        $or:[
+                        // { email: credentials.email },
+                        // { username: credentials.username }]
+                        { email: credentials.identifier },
+                        { userName: credentials.identifier }]
+                    })
+                    
+                    if (!user) {
+                        throw new Error('No user found with this email');
+                      }
+                      if (!user.isVerified) {
+                        throw new Error('Please verify your account before logging in');
+                      }
                     if(user){
                         const isPasswordCorrect = await bcrypt.compare(credentials.password,user?.password);
                         if(isPasswordCorrect){

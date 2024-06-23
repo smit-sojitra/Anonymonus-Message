@@ -12,6 +12,8 @@ import axios, { AxiosError } from "axios";
 import { Loader2, RefreshCcw } from 'lucide-react';
 import { User } from 'next-auth';
 import { useSession } from "next-auth/react";
+// import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
@@ -102,9 +104,11 @@ const page = () => {
             }
           }
     }
-    
     const {username} = session?.user ?? {username:''};
-    const baseUrl = `${window.location.protocol}//${window.location.host}`
+    let baseUrl = '';
+    if (typeof window !== 'undefined') {
+      baseUrl = `${window.location.protocol}//${window.location.host}`;
+    }
     const profileUrl = `${baseUrl}/u/${username}`
     const copyToClipboard = ()=>{
         navigator.clipboard.writeText(profileUrl)

@@ -72,7 +72,6 @@ const page = () => {
         console.log("response:-",response);
         toast.success('Sign Up Successfully');
         router.replace(`/verify/${userName}`)
-        // router.replace('/verify-account');
         setSubmitting(false);
       } catch (error) {
         const axiosErrors = error as AxiosError<ApiResponse>

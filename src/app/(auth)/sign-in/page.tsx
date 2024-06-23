@@ -44,14 +44,13 @@ const Page = () => {
               identifier:data.identifier,
               password:data.password
             })
-      
+            // console.log("Res",response)
             if(response?.ok){
               toast.success("User signin successfully");
               router.replace('/dashboard');
             }else{
               if(response?.error)
-              toast.error(response?.error)
-            
+              toast.error(response?.error)           
             }
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
