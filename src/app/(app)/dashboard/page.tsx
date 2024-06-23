@@ -1,5 +1,5 @@
 'use client'
-import MessageCard from '@/components/MessageCard';
+import  MessageCard  from '@/components/MessageCard';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { Switch } from '@/components/ui/switch';
