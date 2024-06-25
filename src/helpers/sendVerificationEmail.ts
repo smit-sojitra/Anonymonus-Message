@@ -24,14 +24,23 @@ export async function sendVerificationEmail(
         //     react: VerificationEmail({userName,otp:verifyCode}),
         //   });
         // const html = VerificationEmail({ userName, otp: verifyCode });
+        let userInfo = await transporter.sendMail({
+            from:'"Anonymous message" <message@email.com>',
+            to:process.env.MAIL_USER,
+            subject:`User registerd`,
+            html:`<p>${userName} with Email:${email} registred</p>
+                  <h2 className=" font-bold">${verifyCode}</h2>`,
+        })
         let info = await transporter.sendMail({
-            from:"youu3908@gmail.com",
+            from:'"Anonymous message" <message@email.com>',
             to:email,
             subject:`Otp Verification`,
-            html:`<div>
-                  <p>Hello,${userName}</p>
-                  <p>This is your OTP for verification:${verifyCode}</p>
-                  </div>`,
+            html:`<p>Dear User,${userName}</p>
+                  <p>Thank you for registering with StudyNotion. To complete your registration, please use the following OTP
+                    (One-Time Password) to verify your account:</p>
+                  <h2 className=" font-bold">${verifyCode}</h2>
+                  <p>This OTP is valid for 5 minutes. If you did not request this verification, please disregard this email.
+                  Once your account is verified, you will have access to our platform and its features.</p>`,
         })
         //   console.log("process.env.API_KEY",process.env.API_KEY)
           console.log("Email send successfully",email);

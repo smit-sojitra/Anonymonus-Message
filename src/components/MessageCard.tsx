@@ -49,7 +49,7 @@ const MessageCard = ({message,onMessageDelete}:MessageCardProps) => {
     },[handleDeleteConfirm])
   return (
     <Card className="card-bordered">
-    <CardHeader>
+    <CardHeader className="flex flex-col justify-between gap-3">
       <div className="flex justify-between items-center">
         <CardTitle>{message.content}</CardTitle>
         <AlertDialog>

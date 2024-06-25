@@ -16,6 +16,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
+import { Suspense } from "react";
 export default function Home() {
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
@@ -32,7 +33,7 @@ export default function Home() {
 
         {/* Carousel for Messages */}
         <Carousel
-          // plugins={[Autoplay({ delay: 5000 })]}
+          plugins={[Autoplay({ delay: 2000 })]}
           className="w-full max-w-lg md:max-w-xl ml-3"
         >
           <CarouselContent>

@@ -11,6 +11,7 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { Textarea } from '@/components/ui/textarea';
+import { CardHeader, CardContent, Card } from '@/components/ui/card';
 import {
   Form,
   FormControl,
@@ -23,12 +24,26 @@ import {z} from 'zod'
 import { Loader2 } from "lucide-react";
 import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
+import data from '../../../../src/data'
 
 const page = () => {
+  const [currentPage, setCurrentPage] = useState(0);
+  const messagesPerPage = 3;
+  const startIndex = currentPage * messagesPerPage;
+  const endIndex = startIndex + messagesPerPage;
+  const currentMessages = data.slice(startIndex, endIndex);
+  const fetchSuggestMessage = ()=>{
+    if (endIndex < data.length) {
+      setCurrentPage(currentPage + 1);
+    }else{
+      setCurrentPage(0);
+    }
+  }
     const params = useParams();
     const username = params.username;
     console.log("username",username)
     const [isLoading, setIsLoading] = useState(false);
+    const [sugegstLoading, setSugegstLoading] = useState(false);
     const form = useForm({
       resolver:zodResolver(messageSchema),
       defaultValues:{
@@ -37,7 +52,6 @@ const page = () => {
     })
     const messageContent = form.watch('content');
     console.log('MesageContent',messageContent)
-    
     const onSubmit = async (data:z.infer<typeof messageSchema>) =>{
       console.log("data",data)
       console.log("Username",username)
@@ -63,32 +77,25 @@ const page = () => {
         setIsLoading(false);
       }
     }
-    
-    useEffect(()=>{
-      
-    },[]);
+    // const fetchSuggestMessage = async ()=>{
+    //   try {
+    //     setSugegstLoading(true);
+    //     const res = await axios.get('/api/');
+    //     const r = res.data.message;
+    //     const f = r.split('||');
+    //     setData(f);
+    //     console.log('res:-',f)
+    //   } catch (error) {
+    //     console.log('error occured')
+    //   }finally{
+    //     setSugegstLoading(false)
+    //   }
+    // }
+    const handleMessageClick = (message:string)=>{
+      form.setValue('content',message)
+    }
   return (
-    // <div className="flex flex-col items-center">
-    //   <Form {...form}>
-    //     <form onSubmit={form.handleSubmit(onSubmit)}  className="space-y-6">
-    //     <FormField
-    //       control={form.control}
-    //       name="content"
-    //       render={({ field }) => (
-    //         <FormItem>
-    //           <FormControl>
-    //             <Input placeholder="" {...field}/>
-    //           </FormControl>
-    //           <FormMessage />
-    //         </FormItem>
-    //       )}
-    //       />
-    //       <Button  type="submit" disabled={isLoading}>
-    //         { isLoading ? (<><Loader2 className="mr-2 animate-spin"/> Sending...</>) : ('Send')}
-    //       </Button>
-    //       </form>
-    //    </Form>
-    // </div>
+    
     <div className="container mx-auto my-8 p-6 bg-white rounded max-w-4xl">
       <h1 className="text-4xl font-bold mb-6 text-center">
         Public Profile Link
@@ -127,12 +134,12 @@ const page = () => {
         </form>
       </Form>
 
-      {/* <div className="space-y-4 my-8">
+      <div className="space-y-4 my-8">
         <div className="space-y-2">
           <Button
-            onClick={fetchSuggestedMessages}
+            onClick={fetchSuggestMessage}
             className="my-4"
-            disabled={isSuggestLoading}
+            disabled={sugegstLoading}
           >
             Suggest Messages
           </Button>
@@ -143,23 +150,21 @@ const page = () => {
             <h3 className="text-xl font-semibold">Messages</h3>
           </CardHeader>
           <CardContent className="flex flex-col space-y-4">
-            {error ? (
-              <p className="text-red-500">{error.message}</p>
-            ) : (
-              parseStringMessages(completion).map((message, index) => (
+            {
+              currentMessages.map((message:any, index:any) => (
                 <Button
                   key={index}
                   variant="outline"
-                  className="mb-2"
+                  className="mb-2 text-wrap h-fit"
                   onClick={() => handleMessageClick(message)}
                 >
                   {message}
                 </Button>
               ))
-            )}
+            }
           </CardContent>
         </Card>
-      </div> */}
+      </div>
       <Separator className="my-6" />
       <div className="text-center">
         <div className="mb-4">Get Your Message Board</div>

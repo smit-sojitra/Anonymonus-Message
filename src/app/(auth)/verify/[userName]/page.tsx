@@ -61,7 +61,7 @@ const page = () => {
     <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
       <div className="text-center">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-        Verify Your Accountk
+        Verify Your Account
         </h1>
         <p className="mb-4">Enter the verification code sent to your email</p>
       </div>
@@ -74,7 +74,7 @@ const page = () => {
             <FormItem>
               <FormLabel>Verification Code</FormLabel>
               <FormControl>
-                <Input type='text' placeholder="enter your code" {...field} >
+                <Input type='text' placeholder="" {...field} >
                 </Input>
               </FormControl>
               <FormMessage />
