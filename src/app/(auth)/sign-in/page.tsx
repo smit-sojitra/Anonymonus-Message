@@ -63,8 +63,7 @@ const Page = () => {
             if (response?.url) {
               toast.success("User signin successfully")
               router.replace('/dashboard');
-            }
-          
+            }          
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
             console.log("axiosErrros:-",axiosErrors);
@@ -116,7 +115,7 @@ const Page = () => {
             </FormItem>
           )}
           />
-          <Button  type="submit" disabled={submitting}>
+          <Button className="w-full"  type="submit" disabled={submitting}>
             { submitting ? (<><Loader2 className="mr-2 animate-spin"/> please Wait...</>) : ('Signin')}
           </Button>
           </form>

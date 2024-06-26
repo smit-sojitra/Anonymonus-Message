@@ -19,8 +19,6 @@ export const authOptions:NextAuthOptions = {
                 try {
                     const user = await UserModel.findOne({
                         $or:[
-                        // { email: credentials.email },
-                        // { username: credentials.username }]
                         { email: credentials.identifier },
                         { userName: credentials.identifier }]
                     })
@@ -37,6 +35,7 @@ export const authOptions:NextAuthOptions = {
                             if(!user?.isVerified){
                                 throw new Error("User is not verified");
                             }
+                            // console.log('returning User....')
                             return user
                         }else{
                             throw new Error("Invalid Password");
@@ -71,7 +70,7 @@ export const authOptions:NextAuthOptions = {
           },
     },
     session:{
-        strategy:"jwt",
+        strategy: 'jwt',
         // maxAge:1, // 1 hour in seconds
     },
     secret:process.env.NEXTAUTH_SECRET,

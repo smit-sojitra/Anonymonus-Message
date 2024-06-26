@@ -45,7 +45,7 @@ const page = () => {
             });
             console.log('Response',response);
             toast.success("Account verified successfully");
-            router.replace('/dashboard');
+            router.replace('/sign-in');
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
         if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
@@ -81,7 +81,7 @@ const page = () => {
             </FormItem>
           )}
           />
-           <Button type="submit" >
+           <Button className="w-full" type="submit" >
             { submitting ? (<><Loader2 className="mr-2 animate-spin"/> please Wait...</>) : ('Signin')}
           </Button>
           </form>

@@ -161,7 +161,7 @@ const page = () => {
           )}
           />
          
-          <Button type="submit" disabled={submitting}>
+          <Button className="w-full" type="submit" disabled={submitting}>
             { submitting ? (<><Loader2 className="mr-2 animate-spin"/> please Wait...</>) : ('Signup')}
           </Button>
           </form>
