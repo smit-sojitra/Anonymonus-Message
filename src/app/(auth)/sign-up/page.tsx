@@ -25,6 +25,11 @@ import { Loader2 } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { IoIosEyeOff } from "react-icons/io";
 import { IoIosEye } from "react-icons/io";
+import { FaEye } from "react-icons/fa";
+import { FaEyeSlash  } from "react-icons/fa";
+import { IoEye } from "react-icons/io5";
+import { IoMdEyeOff } from "react-icons/io";
+
 
 
 const page = () => {
@@ -87,7 +92,7 @@ const page = () => {
       <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
         <div className="text-center">
           <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-3 md:mb-6">
-            Join True Feedback
+            Join Anonymous message
           </h1>
           <p className="md:mb-4">Sign up to start your anonymous adventure</p>
         </div>
@@ -138,7 +143,15 @@ const page = () => {
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
+              <div className="flex  gap-3">
+              <FormLabel>Password </FormLabel>
+              <p>
+              {
+                pass?(<IoEye onClick={()=>{setPass(!pass)}} className="cursor-pointer"/>):(<IoMdEyeOff  onClick={()=>{setPass(!pass)}} className="cursor-pointer"/>)
+              }
+              </p> 
+
+              </div>
               <FormControl>
                 <Input type={`${pass?'text':'password'}`} className="relative" placeholder="" {...field} >
                 </Input>
@@ -147,9 +160,7 @@ const page = () => {
             </FormItem>
           )}
           />
-          {/* {
-            pass?(<IoIosEye onClick={()=>{setPass(!pass)}} className="cursor-pointer relative left-[90%] bottom-[51px]"/>):(<IoIosEyeOff onClick={()=>{setPass(!pass)}} className="cursor-pointer relative left-[90%] bottom-[51px]"/>)
-          } */}
+         
           <Button type="submit" disabled={submitting}>
             { submitting ? (<><Loader2 className="mr-2 animate-spin"/> please Wait...</>) : ('Signup')}
           </Button>

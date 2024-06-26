@@ -44,14 +44,27 @@ const Page = () => {
               identifier:data.identifier,
               password:data.password
             })
-            // console.log("Res",response)
-            if(response?.ok){
-              toast.success("User signin successfully");
-              router.replace('/dashboard');
-            }else{
-              if(response?.error)
-              toast.error(response?.error)           
+            console.log("Res",response)
+            // if(response?.ok){
+            //   console.log('Dashboard')
+            //   router.replace('/dashboard');
+            //   toast.success("User signin successfully");
+            // }else{
+            //   if(response?.error)
+            //   toast.error(response?.error)           
+            // }
+            if (response?.error) {
+              if (response.error === 'CredentialsSignin') {
+                toast.error(response?.error)
+              } else {
+                toast.error(response?.error)
+              }
             }
+            if (response?.url) {
+              toast.success("User signin successfully")
+              router.replace('/dashboard');
+            }
+          
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
             console.log("axiosErrros:-",axiosErrors);
@@ -70,7 +83,7 @@ const Page = () => {
     <div className="w-full max-w-md p-8 space-y-8 bg-white rounded-lg shadow-md">
       <div className="text-center">
         <h1 className="text-4xl font-extrabold tracking-tight lg:text-5xl mb-6">
-        Welcome Back to True Feedback
+        Welcome Back to Anonymous message
         </h1>
         <p className="mb-4">Sign in to continue your secret conversations</p>
       </div>

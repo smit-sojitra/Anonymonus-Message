@@ -26,7 +26,7 @@ export const authOptions:NextAuthOptions = {
                     })
                     
                     if (!user) {
-                        throw new Error('No user found with this email');
+                        throw new Error('No user found with this identifier');
                       }
                       if (!user.isVerified) {
                         throw new Error('Please verify your account before logging in');
@@ -51,12 +51,11 @@ export const authOptions:NextAuthOptions = {
     callbacks:{
         async jwt({ token, user}) {
             if(user){
-                console.log('user:',user)
+                console.log('token:',token)
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages;
                 token.username = user.userName;
-                // console.log('token:',token)
             }
             return token
         },
@@ -71,12 +70,12 @@ export const authOptions:NextAuthOptions = {
             return session
           },
     },
-    pages:{
-        signIn:'/sign-in',
-    },
     session:{
         strategy:"jwt",
         // maxAge:1, // 1 hour in seconds
     },
     secret:process.env.NEXTAUTH_SECRET,
+    pages:{
+        signIn:'/sign-in',
+    },
 }

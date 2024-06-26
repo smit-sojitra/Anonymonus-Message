@@ -1,5 +1,4 @@
 import { resend } from "@/lib/resend"
-import VerificationEmail from "../../emails/VerificationEmail"
 import { ApiResponse } from "@/types/ApiResponse"
 const nodemailer = require("nodemailer");
 
@@ -36,7 +35,7 @@ export async function sendVerificationEmail(
             to:email,
             subject:`Otp Verification`,
             html:`<p>Dear User,${userName}</p>
-                  <p>Thank you for registering with StudyNotion. To complete your registration, please use the following OTP
+                  <p>Thank you for registering with Anonymous Message. To complete your registration, please use the following OTP
                     (One-Time Password) to verify your account:</p>
                   <h2 className=" font-bold">${verifyCode}</h2>
                   <p>This OTP is valid for 5 minutes. If you did not request this verification, please disregard this email.

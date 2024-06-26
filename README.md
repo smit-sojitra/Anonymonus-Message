@@ -20,16 +20,29 @@ This application allows users to send anonymous messages to each other. Built wi
 1. **Send a Message**: Visit the public messaging page and send an anonymous message.
 2. **Authentication**: Users can authenticate using an OTP service or NextAuth.
 3. **Manage Messages**: Authenticated users can manage their received messages securely.
+## Screenshots
+![App Screenshot](https://res.cloudinary.com/durpz9kvb/image/upload/v1719384823/Image/Screenshot_2024-06-26_120019_tu022t.png)
+![App Screenshot](https://res.cloudinary.com/durpz9kvb/image/upload/v1719384823/Image/Screenshot_2024-06-26_121714_ppdnqm.png)
+![App Screenshot](https://res.cloudinary.com/durpz9kvb/image/upload/v1719384823/Image/Screenshot_2024-06-26_121757_vzhzri.png)
 
-#### Tech Stack
-![Next.js](https://img.shields.io/badge/-Next.js-000000?style=for-the-badge&logo=next.js&logoColor=white)
-![MongoDB](https://img.shields.io/badge/-MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/-Tailwind%20CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
-![TypeScript](https://img.shields.io/badge/-TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-![Zod](https://img.shields.io/badge/-Zod-E12C86?style=for-the-badge&logo=zod&logoColor=white)
-![NextAuth](https://img.shields.io/badge/-NextAuth-000000?style=for-the-badge&logo=next-auth&logoColor=white)
+Check out the project repository for more details: [Anonymous Messaging Application](https://github.com/smit-sojitra/Anonymonus-Message).
+## Environment Variables
 
-Check out the project repository for more details: [Anonymous Messaging Application](https://github.com/your-github-username/anonymous-messaging-app).
+To run this project, you will need to add the following environment variables to your .env file
+
+```bash
+MONGODB_URL=<yourMongoDbUri>
+NEXTAUTH_SECRET=<yourSecret>
+MAIL_HOST=<yourMailhost>
+MAIL_PASS=<yourPassword>
+MAIL_USER=<yourMailUserName>
+API_KEY=<yourApikey>
+OPENAI_API_KEY=<yourApiKey>
+```
 
 ---
+## 🔗 Links
+
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/smit-sojitra-a101922a6/)
+[![github](https://img.shields.io/badge/github-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/smit-sojitra)
 
