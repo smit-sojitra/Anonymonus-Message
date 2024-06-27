@@ -35,17 +35,14 @@ const MessageCard = ({message,onMessageDelete}:MessageCardProps) => {
     const handleDeleteConfirm = async () => {
         try {
           const response = await axios.delete(`api/delete-message/${message._id}`)
-          console.log("Response:",response);
           toast.success(response.data.message);
           const id:any = message._id;
           onMessageDelete(id);
         } catch (error) {
           const axiosErrors = error as AxiosError<ApiResponse>
-          console.log("MessageCard AxiosErrors:-",axiosErrors);
         }
     }
     useEffect(()=>{
-
     },[handleDeleteConfirm])
   return (
     <Card className="card-bordered">

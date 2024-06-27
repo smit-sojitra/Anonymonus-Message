@@ -53,7 +53,6 @@ const page = () => {
     useEffect(()=>{
       const checkUniqueUsername = async ()=>{
         if(userName){
-          console.log('Username',userName)
           setIsCheckingUsername(true);
           setUserMessage('');
           try {
@@ -71,10 +70,8 @@ const page = () => {
     },[userName])
     const onSubmit = async (data:z.infer<typeof signUpschema>)=>{
       setSubmitting(true);
-      console.log("data:",data)
       try {
         const response = await axios.post('/api/sign-up', data)
-        console.log("response:-",response);
         toast.success('Sign Up Successfully');
         router.replace(`/verify/${userName}`)
         setSubmitting(false);
@@ -83,7 +80,6 @@ const page = () => {
         if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
           toast.error(axiosErrors.response.data.message);
         }
-        console.log("axiosErrors:",axiosErrors);
         setSubmitting(false);   
       }
     }

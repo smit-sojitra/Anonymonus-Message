@@ -29,7 +29,6 @@ const page = () => {
     const params = useParams<{userName:string}>()
     const name = params.userName;
     const router = useRouter();
-    // console.log("Params",params)
     const form = useForm({
         resolver:zodResolver(verifySchema),
         defaultValues:{
@@ -43,7 +42,6 @@ const page = () => {
               code:data.code,
               username:name,
             });
-            console.log('Response',response);
             toast.success("Account verified successfully");
             router.replace('/sign-in');
         } catch (error) {
@@ -51,7 +49,6 @@ const page = () => {
         if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
           toast.error(axiosErrors.response.data.message);
         }
-            console.log("axiosErrors:",axiosErrors);
         }finally{
             setSubmitting(false);
         }

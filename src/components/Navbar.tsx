@@ -7,8 +7,7 @@ import { useEffect, useState } from "react"
 const Navbar = () => {
     const {data:session} = useSession();
     const user = session?.user
-    console.log("Navsession:-",session);
-    console.log('User:-',user)
+    // console.log("Navsession:-",session);
     const [first, setfirst] = useState('');
     let path = '';
     if(typeof window !== 'undefined'){
@@ -16,7 +15,6 @@ const Navbar = () => {
     }
     useEffect(()=>{
       setfirst(path);
-      console.log('Path',path)
     },[first])
     
   return (

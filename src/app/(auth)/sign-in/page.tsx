@@ -34,7 +34,6 @@ const Page = () => {
         }
     })
     const onSubmit = async (data:z.infer<typeof signInSchema>)=>{
-        console.log('data',data)
         try {
           setSubmitting(true);
             // const response = await axios.post('/api/sign-in',data)
@@ -44,7 +43,7 @@ const Page = () => {
               identifier:data.identifier,
               password:data.password
             })
-            console.log("Res",response)
+
             // if(response?.ok){
             //   console.log('Dashboard')
             //   router.replace('/dashboard');
@@ -66,7 +65,6 @@ const Page = () => {
             }          
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
-            console.log("axiosErrros:-",axiosErrors);
             if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
               toast.error(axiosErrors.response.data.message);
             }else{

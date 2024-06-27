@@ -33,7 +33,7 @@ const page = () => {
     const form = useForm({
         resolver:zodResolver(acceptMessageSchema),
     })
-    console.log('Dashboard session:-',session)
+    // console.log('Dashboard session:-',session)
     // console.log('Form:',form)
     const {register,watch,setValue} = form;
     const acceptMessages = watch('acceptMessages');
@@ -44,7 +44,7 @@ const page = () => {
             setValue('acceptMessages',response.data.isAcceptingMessages)
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
-            console.log("axiosErrros:-",axiosErrors);
+            // console.log("axiosErrros:-",axiosErrors);
             if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
               toast.error(axiosErrors.response.data.message);
             }else{
@@ -59,10 +59,8 @@ const page = () => {
         setisLoading(true);
         setIsSwitchLoading(false);
         try {
-          console.log('dteched')
             const response = await axios.get('/api/get-messages');
             setMessages(response.data.messages || []);
-            console.log('Refesh',refresh)
             if(refresh){
                 toast.success("Showing refreshed messages")
             }
@@ -71,7 +69,7 @@ const page = () => {
             }
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
-            console.log("axiosErrros:-",axiosErrors);
+            // console.log("axiosErrros:-",axiosErrors);
             if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
               toast.error(axiosErrors.response.data.message);
             }else{
@@ -97,7 +95,6 @@ const page = () => {
             toast.success(response.data.message);
         } catch (error) {
             const axiosErrors = error as AxiosError<ApiResponse>
-            console.log("axiosErrros:-",axiosErrors);
             if (axiosErrors.response && axiosErrors.response.data && axiosErrors.response.data.message) {
               toast.error(axiosErrors.response.data.message);
             }else{
