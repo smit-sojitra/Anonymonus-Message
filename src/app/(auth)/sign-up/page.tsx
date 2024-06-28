@@ -112,14 +112,9 @@ const page = () => {
                   debounced(e.target.value);
                 }}/>
               </FormControl>
-              <p>
-                {
-                 isCheckingUsername &&<Loader2 className="h-4 w-4 animate-spin"/>
-                }
-              </p>
                 <p className={`text-sm ${userMessage === "UserName is unique" ?"text-green-500":"text-red-500"}`}>
                   {
-                    !userMessage?<FormMessage/>:userMessage
+                    isCheckingUsername?(<Loader2 className="h-4 text-black w-4 animate-spin"/>):(!userMessage?<FormMessage/>:userMessage)
                   }
                 </p>
                 
