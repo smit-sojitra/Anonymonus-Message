@@ -38,10 +38,12 @@ const page = () => {
     const [submitting, setSubmitting] = useState(false);
     const [isCheckingUsername, setIsCheckingUsername] = useState(false);
     const [pass,setPass] = useState(false);
-
+    // console.log('userName',userName)
     const debounced = useDebounceCallback(setuserName, 300);
+    
     const router = useRouter();
     // zod implimentation
+    console.log('username',userName)
     const form = useForm<z.infer<typeof signUpschema>>({
       resolver:zodResolver(signUpschema),
       defaultValues:{
@@ -50,23 +52,26 @@ const page = () => {
         password:'',
       }
     })
+    const checkUniqueUsername = async ()=>{
+      if(userName){
+        setIsCheckingUsername(true);
+        setUserMessage('');
+        try {
+          const response = await axios.get(`/api/check-user-unique?userName=${encodeURIComponent(userName)}`)
+          setUserMessage(response.data.message);
+        } catch (error) {
+          const axiosErrors = error as AxiosError<ApiResponse>
+          setUserMessage(axiosErrors.response?.data.message ?? "Error while ckecking username")
+        }finally{
+          setIsCheckingUsername(false);
+        }
+      }
+      }
     useEffect(()=>{
-      const checkUniqueUsername = async ()=>{
-        if(userName){
-          setIsCheckingUsername(true);
-          setUserMessage('');
-          try {
-            const response = await axios.get(`/api/check-user-unique?userName=${userName}`)
-            setUserMessage(response.data.message);
-          } catch (error) {
-            const axiosErrors = error as AxiosError<ApiResponse>
-            setUserMessage(axiosErrors.response?.data.message ?? "Error while ckecking username")
-          }finally{
-            setIsCheckingUsername(false);
-          }
-        }
-        }
       checkUniqueUsername();
+      if (userName.trim() === '') {
+        setUserMessage('');
+      }
     },[userName])
     const onSubmit = async (data:z.infer<typeof signUpschema>)=>{
       setSubmitting(true);
