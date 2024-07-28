@@ -27,7 +27,7 @@ export async function POST(request:Request){
                 { status:500 }
             )
         }
-        const newMessage = {content,createdAt:new Date()};
+        const newMessage = {user:'',content,createdAt:new Date()};
         user.messages.push(newMessage as Message)
         await user.save()
         return Response.json(
@@ -38,6 +38,7 @@ export async function POST(request:Request){
             { status:200 }
         )
     } catch (error) {
+        console.log('error',error)
         return Response.json(
             {
                 success: false,

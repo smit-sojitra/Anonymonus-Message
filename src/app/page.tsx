@@ -16,47 +16,61 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel';
-import { Suspense } from "react";
+import { Suspense, useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import axios, { AxiosError, AxiosResponse } from "axios";
+import { useSession } from "next-auth/react";
+
 export default function Home() {
+  const {data:session} = useSession();
+  const user = session?.user;
   return (
     <main className="flex min-h-screen flex-col items-center justify-center">
       <Navbar/>
-      <div className="w-screen flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white">
-        <section className="text-center mb-8 md:mb-12">
-          <h1 className="text-3xl md:text-5xl font-bold">
-            Dive into the World of Anonymous Message
-          </h1>
-          <p className="mt-3 md:mt-4 text-base md:text-lg">
-          Anonymous Message - Where your identity remains a secret.
-          </p>
-        </section>
+      <div className="w-screen flex-grow flex flex-col pt-10 items-center bg-gray-800">
+        {
+          user && 
+          (<Link href={'/dashboard/users'}>
+            <Button>Users</Button>
+          </Link>)
+        }
+        <div className="w-screen flex-grow flex flex-col items-center justify-center px-4 md:px-24 py-12 bg-gray-800 text-white">
+          <div className="text-center mb-8 md:mb-12">
+            <h1 className="text-3xl md:text-5xl font-bold">
+              Dive into the World of Anonymous Message
+            </h1>
+            <p className="mt-3 md:mt-4 text-base md:text-lg">
+            Anonymous Message - Where your identity remains a secret.
+            </p>
+          </div>
 
-        {/* Carousel for Messages */}
-        <Carousel
-          plugins={[Autoplay({ delay: 4000 })]}
-          className="w-full max-w-lg md:max-w-xl ml-3"
-        >
-          <CarouselContent>
-            {messages.map((message, index) => (
-              <CarouselItem key={index} className="p-4">
-                <Card>
-                  <CardHeader>
-                    <CardTitle>{message.title}</CardTitle>
-                  </CardHeader>
-                  <CardContent className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
-                    <Mail className="flex-shrink-0" />
-                    <div>
-                      <p>{message.content}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {message.received}
-                      </p>
-                    </div>
-                  </CardContent>
-                </Card>
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
+          {/* Carousel for Messages */}
+          <Carousel
+            plugins={[Autoplay({ delay: 4000 })]}
+            className="w-full max-w-lg md:max-w-xl ml-3"
+          >
+            <CarouselContent>
+              {messages.map((message, index) => (
+                <CarouselItem key={index} className="p-4">
+                  <Card>
+                    <CardHeader>
+                      <CardTitle>{message.title}</CardTitle>
+                    </CardHeader>
+                    <CardContent className="flex flex-col md:flex-row items-start space-y-2 md:space-y-0 md:space-x-4">
+                      <Mail className="flex-shrink-0" />
+                      <div>
+                        <p>{message.content}</p>
+                        <p className="text-xs text-muted-foreground">
+                          {message.received}
+                        </p>
+                      </div>
+                    </CardContent>
+                  </Card>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
+        </div>
       </div>
 
       {/* Footer */}

@@ -17,7 +17,7 @@ export const config = {
 // This function can be marked `async` if using `await` inside
 export async function middleware(request: NextRequest) {
     const token = await getToken({ req:request})
-    console.log('token:-',token)
+    // console.log('token:-',token)
    
     const url = request.nextUrl;
 
@@ -31,7 +31,6 @@ export async function middleware(request: NextRequest) {
         // url.pathname === '/'
       )
     ) {
-      
       return NextResponse.redirect(new URL('/dashboard', request.url));
     }
   

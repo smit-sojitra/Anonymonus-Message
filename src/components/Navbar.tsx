@@ -25,7 +25,7 @@ const Navbar = () => {
         </a>
         {session ? (
           <>
-            <span className="mr-4">
+            <span  className="mr-4">
               Welcome, {user.username || user.email}
             </span>
             <div className="space-x-5">

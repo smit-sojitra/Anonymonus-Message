@@ -11,25 +11,29 @@ import { ApiResponse } from "@/types/ApiResponse";
 import { zodResolver } from "@hookform/resolvers/zod";
 import axios, { AxiosError } from "axios";
 import { Loader2, RefreshCcw } from 'lucide-react';
-import { User } from 'next-auth';
+import { getServerSession, User } from 'next-auth';
 import { useSession } from "next-auth/react";
 // import { useRouter } from 'next/router';
 import { useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { Skeleton } from "@/components/ui/skeleton"
-
+// import { Skeleton } from "@/components/ui/skeleton"
+import { Skeleton, SkeletonCircle, SkeletonText } from '@chakra-ui/react'
+import { authOptions } from '@/app/api/auth/[...nextauth]/options';
 
 const page = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setisLoading] = useState(false);
     const [isSwitchLoading, setIsSwitchLoading] = useState(false)
+    
     // const {toast as t} = useToast();
     const handleDeletMessage = (messageId:string)=>{
         setMessages(messages.filter((message)=>message._id !== messageId))
     }
     const{data:session} = useSession();
+    // const session1 = getServerSession(authOptions);
+    console.log('session:--',session)
     const form = useForm({
         resolver:zodResolver(acceptMessageSchema),
     })
@@ -57,7 +61,7 @@ const page = () => {
 
     const fetchMessages = useCallback(async (refresh:boolean=false)=>{
         setisLoading(true);
-        setIsSwitchLoading(false);
+        setIsSwitchLoading(true);
         try {
             const response = await axios.get('/api/get-messages');
             setMessages(response.data.messages || []);
@@ -115,12 +119,12 @@ const page = () => {
     }
     if(!session || !session.user){
         return <div className="flex h-screen w-screen justify-center items-center flex-col space-y-3">
-              <Skeleton className="h-[125px] w-[250px] rounded-xl" />
-              <div className="space-y-2">
-                <Skeleton className="h-4 w-[250px]" />
-                <Skeleton className="h-4 w-[200px]" />
+                <Skeleton className="h-[125px] w-[250px] rounded-xl" />
+                <div className="space-y-2">
+                  <Skeleton className="h-4 w-[250px]" />
+                  <Skeleton className="h-4 w-[200px]" />
+                </div>
               </div>
-            </div>
     }
   return (
     <div className='overflow-hidden flex flex-col justify-center items-center'>
@@ -148,9 +152,9 @@ const page = () => {
             onCheckedChange={handleSwitchChange}
             disabled={isSwitchLoading}
           />
-          <span className="ml-2">
+          <p className="ml-2">
             Accept Messages: {acceptMessages ? 'On' : 'Off'}
-          </span>
+          </p>
         </div>
         <Separator />
 
@@ -175,6 +179,7 @@ const page = () => {
                 key={message._id as string}
                 message={message}
                 onMessageDelete={handleDeletMessage}
+                isLoaded={isLoading}
               />
             ))
           ) : (

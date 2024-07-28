@@ -20,14 +20,14 @@ export const authOptions:NextAuthOptions = {
                     const user = await UserModel.findOne({
                         $or:[
                         { email: credentials.identifier },
-                        { userName: credentials.identifier }]
-                    })
-                    
+                        { userName: credentials.identifier },
+                    {new:true, }]
+                    }).sort({createdAt:-1});
                     if (!user) {
                         throw new Error('No user found with this identifier');
                       }
                       if (!user.isVerified) {
-                        throw new Error('Please verify your account before logging in');
+                        throw new Error('Please verify your account before signin');
                       }
                     if(user){
                         const isPasswordCorrect = await bcrypt.compare(credentials.password,user?.password);
@@ -50,7 +50,7 @@ export const authOptions:NextAuthOptions = {
     callbacks:{
         async jwt({ token, user}) {
             if(user){
-                console.log('token:',token)
+                // console.log('token:',token)
                 token._id = user._id?.toString();
                 token.isVerified = user.isVerified;
                 token.isAcceptingMessages = user.isAcceptingMessages;
@@ -64,7 +64,7 @@ export const authOptions:NextAuthOptions = {
                 session.user.isVerified = token.isVerified;
                 session.user.isAcceptingMessages = token.isAcceptingMessages;
                 session.user.username = token.username;
-                // console.log('token:',token)
+                // console.log('session:',session)
             }
             return session
           },

@@ -7,8 +7,8 @@ export async function POST(request:Request){
     try {
         const {identifier,password} = await request.json();
 
-        const existingUserByUsername = await UserModel.findOne({ userName:identifier });
-        const existingUserByEmail = await UserModel.findOne({ email:identifier });
+        const existingUserByUsername = await UserModel.findOne({ userName:identifier }).sort({createdAt:-1});
+        const existingUserByEmail = await UserModel.findOne({ email:identifier }).sort({createdAt:-1});
         const user = existingUserByUsername || existingUserByEmail;
         if (user) {
             const isPasswordValid = await bcrypt.compare(password, user.password);

@@ -12,6 +12,10 @@
   "dependencies": {
     "@ai-sdk/openai": "^0.0.31",
     "@ai-sdk/react": "^0.0.3",
+    "@chakra-ui/next-js": "^2.2.0",
+    "@chakra-ui/react": "^2.8.2",
+    "@emotion/react": "^11.11.4",
+    "@emotion/styled": "^11.11.5",
     "@google/generative-ai": "^0.13.0",
     "@hookform/resolvers": "^3.6.0",
     "@radix-ui/react-alert-dialog": "^1.1.1",
@@ -30,6 +34,7 @@
     "embla-carousel": "^8.1.5",
     "embla-carousel-autoplay": "^8.1.5",
     "embla-carousel-react": "^8.1.5",
+    "framer-motion": "^11.2.13",
     "lucide-react": "^0.395.0",
     "mongoose": "^8.4.1",
     "next": "14.2.4",

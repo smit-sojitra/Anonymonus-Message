@@ -53,8 +53,8 @@ const page = () => {
     const messageContent = form.watch('content');
     console.log('MesageContent',messageContent)
     const onSubmit = async (data:z.infer<typeof messageSchema>) =>{
-      console.log("data",data)
-      console.log("Username",username)
+      // console.log("data",data)
+      // console.log("Username",username)
       try {
           setIsLoading(true)
           const response = await axios.post<ApiResponse>('/api/send-message',{
