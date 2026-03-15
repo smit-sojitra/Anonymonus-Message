@@ -41,7 +41,7 @@ export async function GET(request:Request){
             return Response.json(
                 {
                     success: true,
-                    message: "User have yet to message",
+                    message: "You haven't received any messages yet.",
                 },
                 { status:200 }
             )
