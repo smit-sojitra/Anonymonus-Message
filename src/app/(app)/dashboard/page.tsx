@@ -21,7 +21,7 @@ import toast from "react-hot-toast";
 import { Skeleton } from "@/components/ui/skeleton"
 
 
-const page = () => {
+const Page = () => {
     const [messages, setMessages] = useState<Message[]>([]);
     const [isLoading, setisLoading] = useState(false);
     const [isSwitchLoading, setIsSwitchLoading] = useState(false)
@@ -186,4 +186,4 @@ const page = () => {
     </div>
   )
 }
-export default page
+export default Page

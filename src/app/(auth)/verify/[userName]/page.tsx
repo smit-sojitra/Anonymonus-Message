@@ -24,7 +24,7 @@ import { verifySchema } from "@/schemas/verifyschema";
 import { useParams, useRouter } from "next/navigation";
 
 
-const page = () => {
+const Page = () => {
     const [submitting,setSubmitting] = useState(false);
     const params = useParams<{userName:string}>()
     const name = params.userName;
@@ -88,4 +88,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

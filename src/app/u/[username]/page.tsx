@@ -26,7 +26,7 @@ import { Separator } from "@/components/ui/separator";
 import Link from "next/link";
 import data from '../../../../src/data'
 
-const page = () => {
+const Page = () => {
   const [currentPage, setCurrentPage] = useState(0);
   const messagesPerPage = 3;
   const startIndex = currentPage * messagesPerPage;
@@ -176,4 +176,4 @@ const page = () => {
   )
 }
 
-export default page
+export default Page

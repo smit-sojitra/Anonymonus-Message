@@ -32,7 +32,7 @@ import { IoMdEyeOff } from "react-icons/io";
 
 
 
-const page = () => {
+const Page = () => {
     const [userName, setuserName] = useState('')
     const [userMessage, setUserMessage] = useState('');
     const [submitting, setSubmitting] = useState(false);
@@ -175,5 +175,5 @@ const page = () => {
 
   )
 }
-export default page
+export default Page
 
