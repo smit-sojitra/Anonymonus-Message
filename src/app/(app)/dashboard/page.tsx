@@ -27,7 +27,7 @@ const Page = () => {
     const [isSwitchLoading, setIsSwitchLoading] = useState(false)
     // const {toast as t} = useToast();
     const handleDeletMessage = (messageId:string)=>{
-        setMessages(messages.filter((message) => (message._id as string).toString() !== messageId))
+        messages.filter((message) => message._id.toString() !== messageId)
     }
     const{data:session} = useSession();
     const form = useForm({
@@ -172,7 +172,7 @@ const Page = () => {
           {messages.length > 0 ? (
             messages.map((message, index) => (
               <MessageCard
-                key={message._id as string}
+                key={message._id.toString()}
                 message={message}
                 onMessageDelete={handleDeletMessage}
               />
